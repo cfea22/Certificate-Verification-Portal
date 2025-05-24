@@ -1,4 +1,4 @@
-<script>
+  <script>
     async function verifyCert() {
       const id = document.getElementById("certID").value;
       const resultDiv = document.getElementById("result");
@@ -9,14 +9,6 @@
         if (data.error) {
           resultDiv.innerHTML = `<span style="color:red">${data.error}</span>`;
         } else {
-          // Format date of birth if it exists in the data
-          if (data['Date of Birth']) {
-            const dob = new Date(data['Date of Birth']);
-            // Format as DD-MM-YYYY
-            const formattedDob = `${dob.getDate().toString().padStart(2, '0')}-${(dob.getMonth()+1).toString().padStart(2, '0')}-${dob.getFullYear()}`;
-            data['Date of Birth'] = formattedDob;
-          }
-          
           resultDiv.innerHTML = Object.entries(data).map(([key, val]) =>
             `<p><strong>${key}:</strong> ${val}</p>`).join("");
         }
@@ -26,37 +18,5 @@
     }
   </script>
 
-<style>
-    .footer {
-        margin-top: 30px;
-        padding: 20px;
-        text-align: center;
-        background-color: #f5f5f5;
-        border-top: 1px solid #ddd;
-        font-family: Arial, sans-serif;
-    }
-    .home-logo {
-        width: 30px;
-        height: 30px;
-        margin-bottom: 10px;
-        transition: transform 0.3s;
-    }
-    .home-logo:hover {
-        transform: scale(1.1);
-    }
-    .copyright {
-        color: #666;
-        font-size: 14px;
-    }
-</style>
-
-<footer class="footer">
-    <a href="/">
-        <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home" class="home-logo">
-    </a>
-    <div class="copyright">
-        &copy; 2025 Career Foundation Educational Academy. All rights reserved.
-    </div>
-</footer>
 </body>
 </html>
