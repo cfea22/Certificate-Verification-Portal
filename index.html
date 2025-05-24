@@ -1,22 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 50%;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 50px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="button"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Career Foundation Educational Academy</h1>
+    <p><strong>Learn Great Skills for Better Future</strong><br>
+       Estd 2022, Napet Palli, Imphal East District Manipur - 795010<br>
+       Reg. No. 425 under I.T. Act 1882 (Registration Act 1908)</p>
+    <p>Enter your certificate ID to verify:</p>
+    <input type="text" id="certID" placeholder="Enter Certificate ID">
+    <input type="button" value="Verify" onclick="verifyCert()">
+    
+    <div id="result"></div>
+  </div>
+
   <script>
     async function verifyCert() {
       const id = document.getElementById("certID").value;
       const resultDiv = document.getElementById("result");
       resultDiv.innerHTML = "Checking...";
+      
+      if (id === "") {
+        resultDiv.innerHTML = "<span class='error'>Please enter a certificate ID.</span>";
+        return;
+      }
+
       try {
         const response = await fetch(`https://script.google.com/macros/s/AKfycbzmLRSGjhMP8Hq1Wqy9_NTMhnBuaKyYLu6RcTkZwLCCRbnBVW3e0ifKqdbos_gpHmDQCg/exec?id=${id}`);
         const data = await response.json();
         if (data.error) {
-          resultDiv.innerHTML = `<span style="color:red">${data.error}</span>`;
+          resultDiv.innerHTML = `<span class="error">${data.error}</span>`;
         } else {
           resultDiv.innerHTML = Object.entries(data).map(([key, val]) =>
             `<p><strong>${key}:</strong> ${val}</p>`).join("");
         }
       } catch (e) {
-        resultDiv.innerHTML = `<span style="color:red">Error verifying certificate.</span>`;
+        resultDiv.innerHTML = "<span class='error'>Error verifying certificate.</span>";
       }
     }
   </script>
 
 </body>
 </html>
+
